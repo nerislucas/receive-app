@@ -1,0 +1,11 @@
+<div class="recipe panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ recipe.title }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="cover-photo-holder" style="float: right;">
+      <img src="{{ recipe.coverPhoto ? reciver.coverPhoto : '/assets/images/bownEmpty.jpeg' }}">
+    </div>
+    <p>{{ recipe.description }}</p>
+  </div>
+</div>

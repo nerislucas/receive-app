@@ -8,7 +8,7 @@ export interface Instruction {
     photo: string;
 }
 
-export class Receipe {
+export class Recipe {
     constructor(title: string
         , description: string
         , ingredients: Ingredient[]
