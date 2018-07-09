@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Receipe } from './models/receipe';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  recipe: Receipe;
+
+  constructor() {
+    this.recipe = new Receipe('Melon', 'This is my favourite melon bread recipe!', null, null, null);
+  }
 }
