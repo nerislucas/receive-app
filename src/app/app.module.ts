@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RecipeListComponentComponent } from './components/recipe-list-component/recipe-list-component.component';
@@ -9,10 +10,11 @@ import { RecipeSummaryComponentComponent } from './components/recipe-summary-com
   declarations: [
     AppComponent,
     RecipeListComponentComponent,
-    RecipeSummaryComponentComponent
+    RecipeSummaryComponentComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

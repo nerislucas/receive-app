@@ -14,6 +14,12 @@ div.cover-photo-holder img{
     margin: 10px 0;
 }
 
+.data-title{
+    float: left;
+    width: 97%;
+    margin: 10px 0;
+}
+
 @media(min-width: 800px){
     .recipe{
         width: 500px;

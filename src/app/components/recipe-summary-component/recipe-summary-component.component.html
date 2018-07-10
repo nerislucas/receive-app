@@ -7,5 +7,14 @@
       <img src="{{ recipe.coverPhoto ? reciver.coverPhoto : '/assets/images/bownEmpty.jpeg' }}">
     </div>
     <p>{{ recipe.description }}</p>
+    <div>
+      <div class="data-title">Preparation Time:</div>
+      <div>{{ recipe.preparationTime }}</div>
+    </div>
+    <div>
+      <div class="data-title">Feeds how many:</div>
+      <div>{{ recipe.feedsMany }}</div>
+    </div>
   </div>
+  <div style="font-size: 75%; cursor: pointer;" (click)="zoomClicked()">Zoom</div>
 </div>
