@@ -1,4 +1,5 @@
-<div class="recipe panel panel-default" (click)="userClicked()">
+<p><a (click)="goBack()" style="cursor: pointer;">Go Back</a></p>
+<div class="recipe panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">{{ recipe.title }}</h3>
   </div>
@@ -14,4 +15,20 @@
       <div>{{ recipe.preparationTime }}</div>
     </div>
   </div>
+
+  <h1> Ingredients </h1>
+
+  <ul>
+    <li *ngFor="let ingredient of recipe.ingredients">
+      {{ ingredient.ingredient }} ({{ ingredient.measure }})
+    </li>
+  </ul>
+
+  <h1> Instructions </h1>
+
+  <ul>
+    <li *ngFor="let instruction of recipe.instructions">
+      {{ instruction.instruction }}
+    </li>
+  </ul>
 </div>

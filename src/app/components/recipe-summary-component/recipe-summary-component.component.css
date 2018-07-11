@@ -18,6 +18,11 @@ div.cover-photo-holder img{
     float: left;
     width: 97%;
     margin: 10px 0;
+    font-weight: bold;
+}
+
+.data-title span{
+    font-weight:normal;
 }
 
 @media(min-width: 800px){

@@ -1,21 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Recipe } from '../../models/recipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-  selector: 'app-recipe-list-component',
-  templateUrl: './recipe-list-component.component.html',
-  styleUrls: ['./recipe-list-component.component.css']
+  selector: 'app-recipe-details-component',
+  templateUrl: './recipe-details-component.component.html',
+  styleUrls: ['./recipe-details-component.component.css']
 })
-export class RecipeListComponentComponent {
+export class RecipeDetailsComponentComponent implements OnInit {
+  recipe: Recipe;
   recipes: Recipe[];
-  recipeForm: Recipe;
 
-
-
-  constructor(private router: Router) {
-    this.recipeForm = Recipe.getEmptyRecipe();
-
+  constructor(private activedRoute: ActivatedRoute, private location: Location) {
     this.recipes = [Recipe.recipeFromJson({
       'id': 1,
       'title': 'Banana Bread',
@@ -305,20 +302,17 @@ export class RecipeListComponentComponent {
     })];
   }
 
-  addRecipe() {
-    this.recipes.push(this.recipeForm);
-    this.recipeForm = Recipe.getEmptyRecipe();
+  ngOnInit() {
+    this.activedRoute.paramMap.subscribe((params: ParamMap) => {
+      this.recipe = this.findRecipeById(parseInt(params.get('id'), 10));
+    });
   }
 
-  zoomIn(recipe) {
-    console.log('recipe: ', JSON.stringify(recipe));
+  findRecipeById(id: number): Recipe {
+    return this.recipes.find(r => r.id === id);
   }
 
-  userClickOnRecipe(id) {
-    this.router.navigateByUrl(`/recipes/${id}`);
-  }
-
-  onCreate() {
-    this.router.navigateByUrl('/recipes/new');
+  goBack() {
+    this.location.back();
   }
 }

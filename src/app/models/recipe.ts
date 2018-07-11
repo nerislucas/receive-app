@@ -9,13 +9,16 @@ export interface Instruction {
 }
 
 export class Recipe {
-    constructor(title: string
+    constructor(id: number
+        , title: string
         , description: string
         , feedsMany: number
         , preparationTime: number
         , ingredients: Ingredient[]
         , instructions: Instruction[]
-        , coverPhoto: string) {
+        , coverPhoto: string
+        , keywords: string[]) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.feedsMany = feedsMany;
@@ -23,8 +26,10 @@ export class Recipe {
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.coverPhoto = coverPhoto;
+        this.keywords = keywords;
     }
 
+    public id: number;
     public title: string;
     public description: string;
     public feedsMany: number;
@@ -32,8 +37,13 @@ export class Recipe {
     public ingredients: Ingredient[];
     public instructions: Instruction[];
     public coverPhoto: string;
+    public keywords: string[];
+
+    public static recipeFromJson(obj: any): Recipe {
+        return JSON.parse(JSON.stringify(obj)) as Recipe;
+    }
 
     public static getEmptyRecipe(): Recipe {
-        return new this('', '', undefined, undefined, null, null, '');
+        return new this(-1, '', '', undefined, undefined, null, null, '', null);
     }
 }

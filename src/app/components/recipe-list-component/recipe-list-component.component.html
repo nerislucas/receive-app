@@ -1,32 +1,5 @@
-<h1>These are our Recipes!</h1>
-<app-recipe-summary-component *ngFor="let recipe of recipes" [recipe]="recipe" (zoomIn)="zoomIn(recipe)"></app-recipe-summary-component>
-
-<div style="clear: both;"></div>
-<div class="newrecipe panel panel-default">
-    <div class="panel-heading">
-        <h4>Add new Recipe</h4>
-    </div>
-    <div class="panel-body">
-        <div class="input-group">
-            <input type="text" style="width: 400px;" class="form-control" [(ngModel)]="recipeForm.title" placeholder="Recipe Title" name="title">
-        </div>
-        <div class="input-group">
-            <textarea style="width: 400px;" class="form-control" [(ngModel)]="recipeForm.description" placeholder="Recipe Description"
-                name="description" rows="5"></textarea>
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="recipeForm.preparationTime" placeholder="Preparation Time" name="preparationTime"
-            />
-            <span class="input-group-addon">People</span>
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="recipeForm.feedsMany" placeholder="Feeds Many" name="feedsMany">
-            <span class="input-group-addon">Minutes</span>
-        </div>
-
-        <span class="input-group-btn">
-            <button type="button" class="btn btn-default" (click)="addRecipe()">Add Recipe!</button>
-        </span>
-
-    </div>
+<div style="float: right; padding: 5px;">
+    <button type="button" (click)="onCreate()">Create</button>
 </div>
+<h1>These are our Recipes!</h1>
+<app-recipe-summary-component *ngFor="let recipe of recipes" (userClick)="userClickOnRecipe($event)" [recipe]="recipe" (zoomIn)="zoomIn(recipe)"></app-recipe-summary-component>

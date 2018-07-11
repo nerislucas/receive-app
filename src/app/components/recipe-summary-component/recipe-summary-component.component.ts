@@ -13,7 +13,14 @@ export class RecipeSummaryComponentComponent {
   @Output()
   zoomIn: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
+  @Output()
+  userClick: EventEmitter<number> = new EventEmitter<number>();
+
   zoomClicked() {
     this.zoomIn.emit(this.recipe);
+  }
+
+  userClicked() {
+    this.userClick.emit(this.recipe.id);
   }
 }
