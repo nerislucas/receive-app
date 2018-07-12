@@ -2,37 +2,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { RecipeListComponentComponent } from './components/recipe-list-component/recipe-list-component.component';
-import { RecipeSummaryComponentComponent } from './components/recipe-summary-component/recipe-summary-component.component';
-import { RecipeDetailsComponentComponent } from './components/recipe-details-component/recipe-details-component.component';
-import { NewEditRecipeComponentComponent } from './components/new-edit-recipe-component/new-edit-recipe-component.component';
+import { RecipeListComponent } from './components/recipe-list-component/recipe-list.component';
+import { RecipeSummaryComponent } from './components/recipe-summary-component/recipe-summary.component';
+import { RecipeDetailsComponent } from './components/recipe-details-component/recipe-details.component';
+import { NewEditRecipeComponent } from './components/new-edit-recipe-component/new-edit-recipe.component';
+import { RecipeService } from './services/recipe.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipeListComponentComponent,
-    RecipeSummaryComponentComponent,
-    RecipeDetailsComponentComponent,
-    NewEditRecipeComponentComponent,
+    RecipeListComponent,
+    RecipeSummaryComponent,
+    RecipeDetailsComponent,
+    NewEditRecipeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     RouterModule.forRoot(
       [
         {
           path: 'recipes',
-          component: RecipeListComponentComponent
+          component: RecipeListComponent
         },
         {
           path: 'recipes/new',
-          component: NewEditRecipeComponentComponent
+          component: NewEditRecipeComponent
         },
         {
           path: 'recipes/:id',
-          component: RecipeDetailsComponentComponent
+          component: RecipeDetailsComponent
         },
         {
           path: '',
@@ -41,7 +44,7 @@ import { NewEditRecipeComponentComponent } from './components/new-edit-recipe-co
         }
       ])
   ],
-  providers: [],
+  providers: [RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

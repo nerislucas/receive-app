@@ -3,10 +3,10 @@ import { Recipe } from '../../models/recipe';
 
 @Component({
   selector: 'app-recipe-summary-component',
-  templateUrl: './recipe-summary-component.component.html',
-  styleUrls: ['./recipe-summary-component.component.css']
+  templateUrl: './recipe-summary.component.html',
+  styleUrls: ['./recipe-summary.component.css']
 })
-export class RecipeSummaryComponentComponent {
+export class RecipeSummaryComponent {
   @Input()
   recipe: Recipe;
 

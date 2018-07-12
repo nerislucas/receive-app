@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Recipe, Ingredient, Instruction } from '../../models/recipe';
+import { RecipeService } from '../../services/recipe.service';
 
 @Component({
   selector: 'app-new-edit-recipe-component',
-  templateUrl: './new-edit-recipe-component.component.html',
-  styleUrls: ['./new-edit-recipe-component.component.css']
+  templateUrl: './new-edit-recipe.component.html',
+  styleUrls: ['./new-edit-recipe.component.css']
 })
-export class NewEditRecipeComponentComponent implements OnInit {
+export class NewEditRecipeComponent implements OnInit {
   recipe: Recipe;
 
-  constructor() {
-
-  }
+  constructor(private recipeService: RecipeService
+    , private router: Router) { }
 
   newOrEdit() {
     this.recipe = Recipe.getEmptyRecipe();
@@ -42,6 +44,12 @@ export class NewEditRecipeComponentComponent implements OnInit {
   }
 
   saveRecipe() {
-    console.log(this.recipe);
+    this.recipeService
+      .upsert(this.recipe)
+      .then(recipe => {
+        if (recipe) {
+          this.router.navigateByUrl(`recipes/${recipe.id}`);
+        }
+      });
   }
 }

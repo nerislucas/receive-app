@@ -1,5 +1,10 @@
-<p><a (click)="goBack()" style="cursor: pointer;">Go Back</a></p>
-<div class="recipe panel panel-default">
+<p>
+  <a (click)="goBack()" style="cursor: pointer;">Go Back</a>
+</p>
+<p *ngIf="!loadingRecipe" style="font-weight: bold;">Loading recipe...</p>
+<p *ngIf="loadingRecipe && !recipe" style="color: red; font-weight: bold">Recipe not found!</p>
+
+<div *ngIf="loadingRecipe && recipe" class="recipe panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">{{ recipe.title }}</h3>
   </div>

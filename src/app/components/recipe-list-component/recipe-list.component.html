@@ -1,0 +1,10 @@
+<div style="float: right; padding: 5px;">
+    <button type="button" (click)="onCreate()">Create</button>
+</div>
+<h1>These are our Recipes!</h1>
+<p *ngIf="!loadingRecipes" style="font-weight: bold; max-width: 700px">Loading recipes...</p>
+<p *ngIf="loadingRecipes && !(recipes && recipes.length)" style="font-weight: bold; width: 250px; color: red">There is no Recipes. Add New Recipe!</p>
+
+<div *ngIf="loadingRecipes && (recipes && recipes.length)">
+    <app-recipe-summary-component *ngFor="let recipe of recipes" (userClick)="userClickOnRecipe($event)" [recipe]="recipe" (zoomIn)="zoomIn(recipe)"></app-recipe-summary-component>
+</div>
