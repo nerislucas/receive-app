@@ -13,6 +13,8 @@ import { RecipeService } from '../../services/recipe.service';
 export class RecipeDetailsComponent implements OnInit {
   recipe: Recipe;
   loadingRecipe: boolean;
+  hasError: boolean;
+  errorMessage: string;
 
   constructor(private activedRoute: ActivatedRoute
     , private location: Location
@@ -23,6 +25,11 @@ export class RecipeDetailsComponent implements OnInit {
       const id = parseInt(params.get('id'), 10);
       this.recipeService.getById(id).then(recipe => {
         this.recipe = recipe;
+        this.loadingRecipe = true;
+      }).catch(error => {
+        this.hasError = true;
+        const body = JSON.parse(error._body);
+        this.errorMessage = body.message;
         this.loadingRecipe = true;
       });
     });
