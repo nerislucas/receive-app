@@ -2,31 +2,37 @@
     <div class="panel-heading">
         <h4>Add new Recipe</h4>
     </div>
-    <form #recipeForm="ngForm">
+    <form [formGroup]="recipeForm">
         <div class="panel-body">
-            <div class="input-group">
-                <input required type="text" style="width: 400px;" class="form-control" [(ngModel)]="recipe.title" placeholder="Recipe Title"
-                    name="title">
+            <div class="form-group">
+                <label class="center-block">Title:
+                    <input style="width: 400px;" class="form-control" formControlName="title">
+                </label>
             </div>
-            <div class="input-group">
-                <textarea required style="width: 400px;" class="form-control" [(ngModel)]="recipe.description" placeholder="Recipe Description" name="description"
-                    rows="5"></textarea>
+
+            <div class="form-group">
+                <label class="center-block">Description:
+                    <textarea style="width: 400px;" class="form-control" formControlName="description" rows="5"></textarea>
+                </label>
             </div>
-            <div class="input-group">
-                <input type="text" class="form-control" [(ngModel)]="recipe.preparationTime" placeholder="Preparation Time" name="preparationTime"
-                />
-                <span class="input-group-addon">People</span>
+
+            <div class="form-group">
+                <label class="center-block">Preparation Time:
+                    <input style="width: 400px;" class="form-control" formControlName="preparationTime">
+                </label>
             </div>
-            <div class="input-group">
-                <input type="text" class="form-control" [(ngModel)]="recipe.feedsMany" placeholder="Feeds Many" name="feedsMany">
-                <span class="input-group-addon">Minutes</span>
+
+            <div class="form-group">
+                <label class="center-block">Feeds how Many:
+                    <input style="width: 400px;" class="form-control" formControlName="feedsMany">
+                </label>
             </div>
 
             <div class="form-group">
                 <label> Ingredients </label>
                 <div class="ingredient" *ngFor="let ingredient of recipe.ingredients; let i=index">
-                    <input type="text" style="width: 40%;" [(ngModel)]="recipe.ingredients[i].ingredient" placeholder="Ingredient">
-                    <input type="text" style="width: 40%;" [(ngModel)]="recipe.ingredients[i].measure" placeholder="Measure">
+                    <input style="width: 400px;" class="form-control" [formControlName]="'ingredient' + i">
+                    <input style="width: 400px;" class="form-control" [formControlName]="'measure' + i">
                     <span (click)="onRemoveIngredient(i)" style="cursor: pointer; padding-left: 5px;">Remove</span>
                 </div>
                 <div class="add-ingredient">
@@ -34,19 +40,19 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label> Instructions </label>
                 <div class="ingredient" *ngFor="let instruction of recipe.instructions; let i=index">
-                    <input type="text" style="width: 40%;" [(ngModel)]="recipe.instructions[i].instruction" placeholder="Instruction">
+                    <input type="text" style="width: 40%;" placeholder="Instruction">
                     <span (click)="onRemoveInstruction(i)" style="cursor: pointer; padding-left: 5px;">Remove</span>
                 </div>
                 <div class="add-ingredient">
                     <input type="button" value="Add" (click)="onAddInstruction()" style="width: 50px;">
                 </div>
-            </div>
+            </div> -->
 
             <span class="input-group-btn">
-                <button [disabled]="!recipeForm.valid" type="button" class="btn btn-default" (click)="saveRecipe()">Add Recipe!</button>
+                <button type="button" [disabled]="recipeForm.invalid" class="btn btn-default" (click)="saveRecipe()">Add Recipe!</button>
             </span>
         </div>
     </form>
