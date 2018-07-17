@@ -16,24 +16,32 @@ export class NewEditRecipeComponent implements OnInit {
 
   constructor(private recipeService: RecipeService
     , private router: Router
-    , private formBuilder: FormBuilder) { }
+    , private formBuilder: FormBuilder) {
+  }
 
-  loadFormGroup() {
+  loadRecipe() {
     if (!this.recipe || !this.recipe.ingredients) {
       this.recipe = Recipe.getEmptyRecipe();
       this.recipe.ingredients = new Array<Ingredient>();
     }
+  }
 
+  loadFormGroup() {
     const group = {
-      title: [this.recipe.title, Validators.required],
-      description: [this.recipe.description, Validators.required],
-      preparationTime: [this.recipe.preparationTime, Validators.required],
-      feedsMany: [this.recipe.feedsMany, Validators.required]
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      preparationTime: ['', Validators.required],
+      feedsMany: ['', Validators.required]
+      ingredients: this.formBuilder.array(
     };
 
+
     for (let index = 0; index < this.recipe.ingredients.length; index++) {
-      group['ingredient' + index] = [this.recipe.ingredients[index].ingredient, [Validators.required]];
-      group['measure' + index] = [this.recipe.ingredients[index].measure, [Validators.required]];
+      const ingredient = 'ingredient' + index;
+      const meaasure = 'measure' + index;
+
+      group[ingredient] = ['', [Validators.required]];
+      group[meaasure] = [this.recipeForm.value[meaasure], [Validators.required]];
     }
 
     // for (let index = 0; index < this.recipe.instructions.length; index++) {
@@ -41,6 +49,10 @@ export class NewEditRecipeComponent implements OnInit {
     // }
 
     this.recipeForm = this.formBuilder.group(group);
+
+    if (this.recipe) {
+      this.recipeForm.patchValue(this.recipe);
+    }
   }
 
   ngOnInit() {
@@ -48,25 +60,39 @@ export class NewEditRecipeComponent implements OnInit {
   }
 
   onAddIngredient() {
+    if(!this.recipe){
+      this.recipe = new Recipe();
+    }
+
+    let r = this.recipeForm.value;
+
+    for (const v in r.ingredients.length) {
+      r.addIntegredient({
+        r.ingredients[v].field
+      })
+    }
+
+
     const ingredient = {} as Ingredient;
     this.recipe.ingredients.push(ingredient);
+    
+    
     this.loadFormGroup();
   }
 
   onRemoveIngredient(index) {
     this.recipe.ingredients.splice(index, 1);
+    console.log('this.recipe.ingredients', this.recipe.ingredients);
     this.loadFormGroup();
   }
 
   onAddInstruction() {
     const instruction = {} as Instruction;
     this.recipe.instructions.push(instruction);
-    this.loadFormGroup();
   }
 
   onRemoveInstruction(index) {
     this.recipe.instructions.splice(index, 1);
-    this.loadFormGroup();
   }
 
   saveRecipe() {
