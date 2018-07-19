@@ -28,21 +28,7 @@
                 </label>
             </div>
 
-            <div class="form-group">
-                <label> Ingredients </label>
-                <div formArrayName="ingredients">
-                    <div class="ingredient" *ngFor="let item of recipeForm.get('ingredients').controls; let i = index;">
-                        <div [formGroupName]="i">
-                            <input style="width: 400px;" class="form-control" formControlName="ingredient">
-                            <input style="width: 400px;" class="form-control" formControlName="measure">
-                            <span (click)="onRemoveIngredient(i)" style="cursor: pointer; padding-left: 5px;">Remove</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="add-ingredient">
-                    <input type="button" value="Add" (click)="onAddIngredient()" style="width: 50px;">
-                </div>
-            </div>
+            <app-dynamic-list labelName="Ingredients" [formBuilder]="this.formBuilder" [formGroup]="recipeForm" formArrayName="ingredients" [dynamicFields]="dynamicFields"></app-dynamic-list>
 
             <!-- <div class="form-group">
                 <label> Instructions </label>

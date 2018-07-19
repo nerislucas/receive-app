@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 
 import { Recipe, Ingredient, Instruction } from '../../models/recipe';
 import { RecipeService } from '../../services/recipe.service';
+import { DynamicField } from '../../models/dynamicField';
 
 @Component({
   selector: 'app-new-edit-recipe-component',
@@ -13,6 +14,7 @@ import { RecipeService } from '../../services/recipe.service';
 export class NewEditRecipeComponent implements OnInit {
   recipeForm: FormGroup;
   ingredients: any[] = [];
+  dynamicFields: Array<DynamicField> = [];
 
   constructor(private recipeService: RecipeService
     , private router: Router
@@ -21,6 +23,13 @@ export class NewEditRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.loadControls();
+    const ingredientField = new DynamicField();
+    ingredientField.field = 'ingredient';
+
+    const measureField = new DynamicField();
+    measureField.field = 'measure';
+
+    this.dynamicFields = [ ingredientField, measureField ];
   }
 
   loadControls() {
@@ -41,6 +50,7 @@ export class NewEditRecipeComponent implements OnInit {
       measure: ['', Validators.required]
     });
   }
+
 
   onAddIngredient() {
     const contractArray = <FormArray>this.recipeForm.controls['ingredients'];

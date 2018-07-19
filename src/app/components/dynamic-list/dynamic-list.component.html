@@ -1,0 +1,16 @@
+<div class="form-group" [formGroup]="formGroup">
+    <label> {{ labelName }} </label>
+    <div [formArrayName]="formArrayName">
+        <div class="ingredient" *ngFor="let item of formGroup.get(this.formArrayName).controls; let i = index;">
+            <div [formGroupName]="i">
+                <div *ngFor="let dynamicField of dynamicFields">
+                    <input style="width: 400px;" class="form-control" [formControlName]="dynamicField.field">
+                </div>
+                <span (click)="onRemoveItem(i)" style="cursor: pointer; padding-left: 5px;">Remove</span>
+            </div>
+        </div>
+    </div>
+    <div class="add-ingredient">
+        <input type="button" value="Add" (click)="onAddItem()" style="width: 50px;">
+    </div>
+</div>

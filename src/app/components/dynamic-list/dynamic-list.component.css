@@ -1,0 +1,15 @@
+div.ingredient{
+    margin-bottom: 7px;
+}
+
+div.add-ingredient input, div.add-instruction input{
+    width: 50px;
+}
+
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid{
+    border-left: 5px solid red;
+}
+
+input.ng-touched.ng-valid, textarea.ng-touched.ng-valid{
+    border-left: 5px solid green;
+}

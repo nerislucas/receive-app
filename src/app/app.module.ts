@@ -10,6 +10,7 @@ import { RecipeSummaryComponent } from './components/recipe-summary-component/re
 import { RecipeDetailsComponent } from './components/recipe-details-component/recipe-details.component';
 import { NewEditRecipeComponent } from './components/new-edit-recipe-component/new-edit-recipe.component';
 import { RecipeService } from './services/recipe.service';
+import { DynamicListComponent } from './components/dynamic-list/dynamic-list.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RecipeService } from './services/recipe.service';
     RecipeSummaryComponent,
     RecipeDetailsComponent,
     NewEditRecipeComponent,
+    DynamicListComponent,
   ],
   imports: [
     BrowserModule,
