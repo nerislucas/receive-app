@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import { Recipe, Ingredient, Instruction } from '../../models/recipe';
 import { RecipeService } from '../../services/recipe.service';
@@ -11,88 +11,55 @@ import { RecipeService } from '../../services/recipe.service';
   styleUrls: ['./new-edit-recipe.component.css']
 })
 export class NewEditRecipeComponent implements OnInit {
-  recipe: Recipe;
   recipeForm: FormGroup;
+  ingredients: any[] = [];
 
   constructor(private recipeService: RecipeService
     , private router: Router
     , private formBuilder: FormBuilder) {
   }
 
-  loadRecipe() {
-    if (!this.recipe || !this.recipe.ingredients) {
-      this.recipe = Recipe.getEmptyRecipe();
-      this.recipe.ingredients = new Array<Ingredient>();
-    }
+  ngOnInit() {
+    this.loadControls();
   }
 
-  loadFormGroup() {
+  loadControls() {
     const group = {
       title: ['', Validators.required],
       description: ['', Validators.required],
       preparationTime: ['', Validators.required],
-      feedsMany: ['', Validators.required]
-      ingredients: this.formBuilder.array(
+      feedsMany: ['', Validators.required],
+      ingredients: this.formBuilder.array([])
     };
 
-
-    for (let index = 0; index < this.recipe.ingredients.length; index++) {
-      const ingredient = 'ingredient' + index;
-      const meaasure = 'measure' + index;
-
-      group[ingredient] = ['', [Validators.required]];
-      group[meaasure] = [this.recipeForm.value[meaasure], [Validators.required]];
-    }
-
-    // for (let index = 0; index < this.recipe.instructions.length; index++) {
-    //   group['instruction' + index] = [this.recipe.instructions[index].instruction, [Validators.required]];
-    // }
-
     this.recipeForm = this.formBuilder.group(group);
-
-    if (this.recipe) {
-      this.recipeForm.patchValue(this.recipe);
-    }
   }
 
-  ngOnInit() {
-    this.loadFormGroup();
+  loadControlIngredient(): FormGroup {
+    return this.formBuilder.group({
+      ingredient: ['', Validators.required],
+      measure: ['', Validators.required]
+    });
   }
 
   onAddIngredient() {
-    if(!this.recipe){
-      this.recipe = new Recipe();
-    }
-
-    let r = this.recipeForm.value;
-
-    for (const v in r.ingredients.length) {
-      r.addIntegredient({
-        r.ingredients[v].field
-      })
-    }
-
-
-    const ingredient = {} as Ingredient;
-    this.recipe.ingredients.push(ingredient);
-    
-    
-    this.loadFormGroup();
+    const contractArray = <FormArray>this.recipeForm.controls['ingredients'];
+    const newContract = this.loadControlIngredient();
+    contractArray.push(newContract);
   }
 
   onRemoveIngredient(index) {
-    this.recipe.ingredients.splice(index, 1);
-    console.log('this.recipe.ingredients', this.recipe.ingredients);
-    this.loadFormGroup();
+    const contractsArray = <FormArray>this.recipeForm.controls['ingredients'];
+    contractsArray.removeAt(index);
   }
 
   onAddInstruction() {
-    const instruction = {} as Instruction;
-    this.recipe.instructions.push(instruction);
+    // const instruction = {} as Instruction;
+    // this.recipe.instructions.push(instruction);
   }
 
   onRemoveInstruction(index) {
-    this.recipe.instructions.splice(index, 1);
+    // this.recipe.instructions.splice(index, 1);
   }
 
   saveRecipe() {
